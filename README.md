@@ -71,6 +71,18 @@ docker compose up --build
 
 ## Local Development
 
+If you run the backend directly with `uvicorn`, `DATABASE_URL` must point to a Postgres server reachable from Windows, usually `localhost`:
+
+```env
+DATABASE_URL=postgresql+asyncpg://rag:rag@localhost:5432/rag
+```
+
+You can start only the database with Docker Desktop running:
+
+```bash
+docker compose up -d postgres
+```
+
 Backend:
 
 ```bash
@@ -156,4 +168,3 @@ For local backend development outside Docker, use a local Postgres URL and eithe
 - Ingestion retry queue and dead-letter handling
 - Evaluation set for citation faithfulness and retrieval recall
 - Admin dashboard for failed uploads and vector index health
-

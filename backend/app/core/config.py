@@ -5,6 +5,8 @@ from typing import Annotated
 from pydantic import BeforeValidator, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
 
 def _split_csv(value: str | list[str]) -> list[str]:
     if isinstance(value, list):
@@ -14,7 +16,7 @@ def _split_csv(value: str | list[str]) -> list[str]:
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=PROJECT_ROOT / ".env",
         env_file_encoding="utf-8",
         extra="ignore",
         case_sensitive=True,
@@ -32,7 +34,7 @@ class Settings(BaseSettings):
     GOOGLE_TEMPERATURE: float = 0.2
     GOOGLE_MAX_OUTPUT_TOKENS: int = 1600
 
-    DATABASE_URL: str = "postgresql+asyncpg://rag:rag@postgres:5432/rag"
+    DATABASE_URL: str = "postgresql+asyncpg://rag:rag@localhost:5432/rag"
 
     CHROMA_PATH: str = "./data/chroma"
     CHROMA_HOST: str | None = None
@@ -91,4 +93,3 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
-
