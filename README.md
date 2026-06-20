@@ -83,19 +83,27 @@ You can start only the database with Docker Desktop running:
 docker compose up -d postgres
 ```
 
+You can also use the helper script from the project root:
+
+```powershell
+.\scripts\dev-backend.ps1
+```
+
 Backend:
 
-```bash
+```powershell
 cd backend
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
+
+Use `uvicorn`, not `unicorn`. The import path is `app.main:app`.
 
 Frontend:
 
-```bash
+```powershell
 cd frontend
 npm install
 npm run dev
